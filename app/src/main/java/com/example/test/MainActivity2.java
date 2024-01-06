@@ -53,7 +53,7 @@ public class MainActivity2 extends AppCompatActivity {
             startActivities(new Intent[]{new Intent(MainActivity2.this, FingerCounter.class)});
             return true;
         } else if (id == R.id.sub_activity2) {
-            startActivities(new Intent[]{new Intent(MainActivity2.this, VoiceRecognition.class)});
+            startActivities(new Intent[]{new Intent(MainActivity2.this, LedControlActivity.class)});
             return true;
         } else if (id == R.id.Profile) {
             startActivities(new Intent[]{new Intent(MainActivity2.this, Profile.class)});
