@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FingerCounter"
-    android:background="@drawable/BackGround">>
+    android:background="@drawable/backgournd">>
 
     <ImageButton
         android:id="@+id/on_hand"
