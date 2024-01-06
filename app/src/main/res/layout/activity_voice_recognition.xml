@@ -3,15 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LedControlActivity">
+    tools:context=".LedControlActivity"
+    android:background="@drawable/backgournd">
 
     <Button
         android:id="@+id/btnTurnOffAll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Turn Off All"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:text="Turn Off All"
+        android:textColorHighlight="#9C27B0"
+        android:textColorLink="#673AB7" />
 
     <Button
         android:id="@+id/btnTurnOnLed1"

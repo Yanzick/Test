@@ -120,39 +120,4 @@ public class Register extends AppCompatActivity {
             passwordLayout.setError(null);
         }
     }
-
-//    private class RegisterTask extends AsyncTask<String, Void, Boolean> {
-//        @Override
-//        protected Boolean doInBackground(String... params) {
-//            String username = params[0];
-//            String password = params[1];
-//            try {
-//                // System.out.println(username + password);
-//                Class.forName("net.sourceforge.jtds.jdbc.Driver");
-//                String url = "jdbc:jtds:sqlserver://LAPTOP-L9BKK0OP\\SQLEXPRESS;databaseName=javaApp;integratedSecurity=true";
-//                Connection connection = DriverManager.getConnection(url);
-//
-//                String query = "INSERT INTO dbo.register (user, pass) VALUES (?, ?)";
-//                PreparedStatement preparedStatement = connection.prepareStatement(query);
-//                preparedStatement.setString(1, username);
-//                preparedStatement.setString(2, password);
-//
-//                int rowsAffected = preparedStatement.executeUpdate();
-//
-//                connection.close();
-//
-//                return rowsAffected > 0;
-//            } catch (ClassNotFoundException | SQLException e) {
-//                e.printStackTrace();
-//                return false;
-//            }
-//        }
-//        @Override
-//        protected void onPostExecute(Boolean success) {
-//            if (success) {
-//                Toast.makeText(Register.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-//            } else {
-//                Toast.makeText(Register.this, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-    }
+}

@@ -58,9 +58,6 @@ public class MainActivity2 extends AppCompatActivity {
         } else if (id == R.id.Profile) {
             startActivities(new Intent[]{new Intent(MainActivity2.this, Profile.class)});
             return true;
-        } else if (id == R.id.action_help) {
-            startActivities(new Intent[]{new Intent(MainActivity2.this, Help.class)});
-            return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
