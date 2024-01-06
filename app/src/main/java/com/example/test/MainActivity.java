@@ -185,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Toast mToast;
     String topic ;
     String serverURI;
+    String clientId = MqttClient.generateClientId();
 
     int STT=0;
 
@@ -254,31 +255,68 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void connect() {
-        String clientId = MqttClient.generateClientId();
-        mqttAndroidClient = new MqttAndroidClient(this.getApplicationContext(), serverURI, clientId);
+
+//        Broker:broker-cn.emqx.io
+//
+//        TCP :1883
+//
+//        Websocket :8083
+//
+//        TCP/TLS :8883
+//
+//        Websocket/TLS :8084
+//
+
+        mqttAndroidClient = new MqttAndroidClient(getApplicationContext(), serverURI, clientId);
+
+        mqttAndroidClient.setCallback(new MqttCallback() {
+            @Override
+            public void connectionLost(Throwable cause) {
+                Log.e(TAG, "connectionLost: ");
+            }
+
+            @Override
+            public void messageArrived(String topic, MqttMessage message) throws Exception {
+
+                Log.e(TAG, "messageArrived: " + topic + ":" + message.toString());
+
+                tvMsg.setText("time: " + System.currentTimeMillis() + "\r\n" + "topic: " + topic + "\r\n" + "message: " + message.toString());
+
+
+            }
+
+            @Override
+            public void deliveryComplete(IMqttDeliveryToken token) {
+
+                Log.e(TAG, "deliveryComplete: ");
+            }
+        });
+
 
         connectOptions = new MqttConnectOptions();
         connectOptions.setAutomaticReconnect(true);
 
         try {
-            IMqttToken token = mqttAndroidClient.connect(connectOptions, null);
-            token.setActionCallback(new IMqttActionListener() {
+            mqttAndroidClient.connect(connectOptions, null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
+
                     Log.e(TAG, "connect onSuccess: " + asyncActionToken.getClient().getClientId());
 
-                    Toast.makeText(MainActivity .this, "connect onSuccess", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "connect onSuccess", Toast.LENGTH_SHORT).show();
                     tvStatus.setText("connect onSuccess");
 //                    publish("Success");
 //                    change();
                     STT=1;
+
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+
                     tvStatus.setText("connect onFailure");
-                    Log.e(TAG, "connect onFailure: " + exception.getMessage(), exception);
-                    STT = 0;
+                    Log.e(TAG, "connect onFailure: " );
+                    STT=0;
                 }
             });
         } catch (MqttException e) {
