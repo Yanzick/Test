@@ -19,7 +19,7 @@
         android:title="Finger Counter"
         />
     <item android:id="@+id/sub_activity2"
-        android:title="Voice Recognition"
+        android:title="Led Control"
         />
     <item
         android:id="@+id/home"
