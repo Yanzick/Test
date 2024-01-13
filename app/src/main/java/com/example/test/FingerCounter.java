@@ -7,19 +7,18 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import org.eclipse.paho.android.service.MqttAndroidClient;
+
 public class FingerCounter extends AppCompatActivity implements View.OnClickListener {
 
-    private ImageButton btnTurnOffAll;
-    private ImageButton btnTurnOnLed1;
-
-
+    private ImageButton btnTurnOn;
+    private ImageButton btnTurnOff;
     private Toast mToast;
-    String topic = "mqtt/handlethings";
-    String serverURI = "tcp://broker.hivemq.com:1883";
+    String topic = "Test";
+    String serverURI = "tcp://test.mosquitto.org:1883";
     String clientId = "MqttAndroid";
     MQTT mqtt = new MQTT();
     private MqttAndroidClient mqttAndroidClient;
-    private static final String TAG = "Activiti5";
+    private static final String TAG = "LedControlActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +27,8 @@ public class FingerCounter extends AppCompatActivity implements View.OnClickList
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setLogo(R.mipmap.ic_launcher);
-        actionBar.setDisplayUseLogoEnabled(true);
+       // actionBar.setLogo(R.mipmap.ic_launcher);
+       // actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Finger Counter");
 
@@ -37,34 +36,37 @@ public class FingerCounter extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView() {
-        btnTurnOffAll = findViewById(R.id.on_hand);
-        btnTurnOnLed1 = findViewById(R.id.off_hand);
+        btnTurnOn = findViewById(R.id.on_hand);
+        btnTurnOff = findViewById(R.id.off_hand);
 
-        btnTurnOffAll.setOnClickListener(this);
-        btnTurnOnLed1.setOnClickListener(this);
+        btnTurnOn.setOnClickListener(this);
+        btnTurnOff.setOnClickListener(this);
     }
+
 
     @Override
     public void onClick(View view) {
         int viewId = view.getId();
         String command = "";
 
-        if (viewId == R.id.btnTurnOffAll) {
-            command = "ON"; // Tắt hết cả hai đèn
-        } else if (viewId == R.id.btnTurnOnLed1) {
-            command = "OFF"; // Mở LED 1
+        if (viewId == R.id.on_hand) {
+            command = "ON"; // Gửi chuỗi "on" để bật đèn
+        } else if (viewId == R.id.off_hand) {
+            command = "OFF"; // Gửi chuỗi "off" để tắt đèn
         }
+
         // Gửi yêu cầu điều khiển đèn LED thông qua MQTT
         mqtt.connect(mqttAndroidClient, getApplicationContext(), serverURI, clientId, TAG, 1, command, topic);
 
         // Hiển thị thông báo
-        showToast("Camera open");
-    }private void showToast(String message) {
+        showToast("LED " + (command.equals("on") ? "turned on" : "turned off"));
+    }
+
+    private void showToast(String message) {
         if (mToast != null) {
             mToast.cancel();
         }
         mToast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
         mToast.show();
     }
-
 }

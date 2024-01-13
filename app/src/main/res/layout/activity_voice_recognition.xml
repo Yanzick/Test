@@ -8,56 +8,63 @@
 
     <Button
         android:id="@+id/btnTurnOffAll"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="160dp"
+        android:background="@drawable/bts"
         android:text="Turn Off All"
         android:textColorHighlight="#9C27B0"
         android:textColorLink="#673AB7" />
 
     <Button
         android:id="@+id/btnTurnOnLed1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Turn On LED 1"
         android:layout_below="@id/btnTurnOffAll"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bts"/>
 
     <Button
         android:id="@+id/btnTurnOffLed1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Turn Off LED 1"
         android:layout_below="@id/btnTurnOnLed1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bts"/>
 
     <Button
         android:id="@+id/btnTurnOnLed2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Turn On LED 2"
         android:layout_below="@id/btnTurnOffLed1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bts"/>
 
     <Button
         android:id="@+id/btnTurnOffLed2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Turn Off LED 2"
         android:layout_below="@id/btnTurnOnLed2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bts"/>
 
     <Button
         android:id="@+id/btnTurnOnBothLeds"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Turn On Both LEDs"
         android:layout_below="@id/btnTurnOffLed2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bts"/>
+
 </RelativeLayout>

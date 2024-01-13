@@ -92,8 +92,8 @@ public class LedControlActivity extends AppCompatActivity implements View.OnClic
     private Button btnTurnOnBothLeds;
 
     private Toast mToast;
-    String topic = "mqtt/handlethings";
-    String serverURI = "tcp://broker.hivemq.com:1883";
+    String topic = "Test2";
+    String serverURI = "tcp://test.mosquitto.org:1883";
     String clientId = "MqttAndroid";
     MQTT mqtt = new MQTT();
     private MqttAndroidClient mqttAndroidClient;
@@ -106,8 +106,8 @@ public class LedControlActivity extends AppCompatActivity implements View.OnClic
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setLogo(R.mipmap.ic_launcher);
-        actionBar.setDisplayUseLogoEnabled(true);
+       // actionBar.setLogo(R.mipmap.ic_launcher);
+        //actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("LED Control");
 

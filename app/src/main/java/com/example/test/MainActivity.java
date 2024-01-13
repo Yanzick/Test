@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onSuccess(IMqttToken asyncActionToken) {
 
                     Log.d(TAG, "connect onSuccess: " + asyncActionToken.getClient().getClientId());
-                    publish("Success");
+                   // publish("Success");
                     Toast.makeText(MainActivity.this, "connect onSuccess", Toast.LENGTH_SHORT).show();
                     tvStatus.setText("connect onSuccess");
                     STT=1;

@@ -34,8 +34,8 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setLogo(R.mipmap.ic_launcher);
-        actionBar.setDisplayUseLogoEnabled(true);
+        //actionBar.setLogo(R.drawable.icon);
+      //  actionBar.setDisplayUseLogoEnabled(true);
 //        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Activity");
     }
@@ -55,10 +55,15 @@ public class MainActivity2 extends AppCompatActivity {
         } else if (id == R.id.sub_activity2) {
             startActivities(new Intent[]{new Intent(MainActivity2.this, LedControlActivity.class)});
             return true;
-        } else if (id == R.id.Profile) {
+        } else if (id == R.id.home) {
+            startActivities(new Intent[]{new Intent(MainActivity2.this, MainActivity.class)});
+            return true;
+        }
+        else if (id == R.id.Profile) {
             startActivities(new Intent[]{new Intent(MainActivity2.this, Profile.class)});
             return true;
-        } else {
+        }
+        else {
             return super.onOptionsItemSelected(item);
         }
     }

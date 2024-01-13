@@ -1,0 +1,14 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/Cian1" /> <!-- Màu khi nhấn -->
+            <corners android:radius="150dp" /> <!-- Độ cong góc -->
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/Orange" /> <!-- Màu mặc định -->
+            <corners android:radius="150dp" /> <!-- Độ cong góc -->
+        </shape>
+    </item>
+</selector>

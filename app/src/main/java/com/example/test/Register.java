@@ -38,15 +38,19 @@ public class Register extends AppCompatActivity {
 
         dbHelper = new DatabaseHelper(this);
         registerButton.setOnClickListener(new View.OnClickListener() {
-            String pass = password.getText().toString();
-            String confirmPass = confirmPassword.getText().toString();
             @Override
             public void onClick(View view) {
                 String usernametxt = username.getText().toString();
                 String passwordtxt = password.getText().toString();
+                String pass = passwordtxt; // Lấy giá trị password mới từ EditText
+                String confirmPass = confirmPassword.getText().toString();
+                if (usernametxt.isEmpty() || passwordtxt.isEmpty()) {
+                    Toast.makeText(Register.this, "Tên người dùng và mật khẩu không thể trống", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (pass.equals(confirmPass)) {
                     long result = dbHelper.addUser(usernametxt, passwordtxt);
-                    if (result != -1) {
+                    if (result != -1 ) {
                         Toast.makeText(Register.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
@@ -54,9 +58,9 @@ public class Register extends AppCompatActivity {
                         Toast.makeText(Register.this, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show();
                     }
                 }
-
             }
         });
+
         password.addTextChangedListener(new TextWatcher() { // watch thằng text
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
