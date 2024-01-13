@@ -25,32 +25,35 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 public class MQTT{
 
 
+    private boolean messageSent = false;
+
     //    //发布
     public void publish(MqttAndroidClient mqttAndroidClient,String msg, String topic, String TAG) {
+        if (!messageSent) {
+            MqttMessage message = new MqttMessage();
+            message.setQos(0);
+            message.setRetained(false);
+            message.setPayload((msg).getBytes());
 
-        MqttMessage message = new MqttMessage();
-        message.setQos(0);
-        message.setRetained(false);
-        message.setPayload((msg).getBytes());
-        try {
-            mqttAndroidClient.publish(topic, message, null, new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
+            try {
+                mqttAndroidClient.publish(topic, message, null, new IMqttActionListener() {
+                    @Override
+                    public void onSuccess(IMqttToken asyncActionToken) {
+                        messageSent = true;
+                        Log.d(TAG, "Message sent: " + msg);
+                    }
 
-
-                }
-
-                @Override
-                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-
-                    Log.e(TAG, "onFailure: ");
-
-                }
-            });
-        } catch (MqttException e) {
-            e.printStackTrace();
+                    @Override
+                    public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                        Log.e(TAG, "onFailure: ");
+                    }
+                });
+            } catch (MqttException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Log.d(TAG, "Message already sent.");
         }
-
     }
 //
 //
@@ -112,7 +115,7 @@ public class MQTT{
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {
 
-                Log.e(TAG, "deliveryComplete: ");
+                Log.e(TAG, "deliveryComplete: " + msg);
             }
         });
 
@@ -148,6 +151,7 @@ public class MQTT{
         }
 
     }
+
 
 
 }

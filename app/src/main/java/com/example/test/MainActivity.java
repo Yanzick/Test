@@ -37,10 +37,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Toast mToast;
     String topic ;
     String serverURI;
-    String clientId = MqttClient.generateClientId();
+    String clientId = "MqttAndroid";
 
     int STT=0;
-
+    private boolean messageSent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +104,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         startActivities(new Intent[]{new  Intent(MainActivity .this, MainActivity2.class)});
     }
+    public void publish(String message) {
+        try {
+            if (!messageSent) {
+                MqttMessage mqttMessage = new MqttMessage();
+                mqttMessage.setPayload(message.getBytes());
+                mqttAndroidClient.publish(topic, mqttMessage);
+                Log.d(TAG, "Message sent: " + message);
+                messageSent = true; // Đặt biến kiểm soát thành true để ngăn việc gửi lại
+            } else {
+                Log.d(TAG, "Message already sent.");
+            }
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     private void connect() {
@@ -127,9 +142,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void deliveryComplete(IMqttDeliveryToken token) {
-
-                Log.e(TAG, "deliveryComplete: ");
+                try {
+                    String message = new String(token.getMessage().getPayload());
+                    Log.d(TAG, "deliveryComplete: " + message);
+                } catch (MqttException e) {
+                    e.printStackTrace();
+                }
             }
+
         });
 
 
@@ -142,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 public void onSuccess(IMqttToken asyncActionToken) {
 
                     Log.d(TAG, "connect onSuccess: " + asyncActionToken.getClient().getClientId());
-
+                    publish("Success");
                     Toast.makeText(MainActivity.this, "connect onSuccess", Toast.LENGTH_SHORT).show();
                     tvStatus.setText("connect onSuccess");
                     STT=1;

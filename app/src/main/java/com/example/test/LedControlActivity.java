@@ -92,7 +92,7 @@ public class LedControlActivity extends AppCompatActivity implements View.OnClic
     private Button btnTurnOnBothLeds;
 
     private Toast mToast;
-    String topic = "house/build";
+    String topic = "mqtt/handlethings";
     String serverURI = "tcp://broker.hivemq.com:1883";
     String clientId = "MqttAndroid";
     MQTT mqtt = new MQTT();

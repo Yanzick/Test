@@ -1,32 +1,25 @@
 package com.example.test;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import org.eclipse.paho.android.service.MqttAndroidClient;
-
 public class FingerCounter extends AppCompatActivity implements View.OnClickListener {
 
-    private ImageButton btnonHand, btnoffHand;
-    private TextView Status;
+    private ImageButton btnTurnOffAll;
+    private ImageButton btnTurnOnLed1;
 
-    private static final String TAG = "MainActivity5";
-    private MqttAndroidClient mqttAndroidClient;
+
     private Toast mToast;
-    String topic = "house/build";
+    String topic = "mqtt/handlethings";
     String serverURI = "tcp://broker.hivemq.com:1883";
     String clientId = "MqttAndroid";
     MQTT mqtt = new MQTT();
+    private MqttAndroidClient mqttAndroidClient;
+    private static final String TAG = "Activiti5";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,42 +36,35 @@ public class FingerCounter extends AppCompatActivity implements View.OnClickList
         initView();
     }
 
-    @SuppressLint("WrongViewCast")
     private void initView() {
-        btnonHand = findViewById(R.id.on_hand);
+        btnTurnOffAll = findViewById(R.id.on_hand);
+        btnTurnOnLed1 = findViewById(R.id.off_hand);
 
-        btnoffHand = findViewById(R.id.off_hand);
-
-        btnonHand.setOnClickListener(this);
-
-        btnoffHand.setOnClickListener(this);
-
-        Status = findViewById(R.id.Text);
-
-
+        btnTurnOffAll.setOnClickListener(this);
+        btnTurnOnLed1.setOnClickListener(this);
     }
-
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.home) {
-            super.onBackPressed();
-        }
-        return super.onOptionsItemSelected(item);
-
-    }
-
 
     @Override
     public void onClick(View view) {
         int viewId = view.getId();
+        String command = "";
 
-        if (viewId == R.id.on_hand) {
-            mqtt.connect(mqttAndroidClient, getApplicationContext(), serverURI, clientId, TAG, 1, "on", topic);
-            Status.setText("Enable Finger Counter");
-        } else if (viewId == R.id.off_hand) {
-            mqtt.connect(mqttAndroidClient, getApplicationContext(), serverURI, clientId, TAG, 1, "off", topic);
-            Status.setText("Disable Finger Counter");
+        if (viewId == R.id.btnTurnOffAll) {
+            command = "ON"; // Tắt hết cả hai đèn
+        } else if (viewId == R.id.btnTurnOnLed1) {
+            command = "OFF"; // Mở LED 1
         }
+        // Gửi yêu cầu điều khiển đèn LED thông qua MQTT
+        mqtt.connect(mqttAndroidClient, getApplicationContext(), serverURI, clientId, TAG, 1, command, topic);
+
+        // Hiển thị thông báo
+        showToast("Camera open");
+    }private void showToast(String message) {
+        if (mToast != null) {
+            mToast.cancel();
+        }
+        mToast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        mToast.show();
     }
+
 }

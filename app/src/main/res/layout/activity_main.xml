@@ -26,13 +26,13 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:hint="topic"
-        android:text="house/build" />
+        android:text="mqtt/handlethings" />
 
     <EditText
         android:id="@+id/SURI"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="tcp://broker.hivemq.com:1883"
+        android:text="tcp://test.mosquitto.org:1883"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:hint="Service URI" />
